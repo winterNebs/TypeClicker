@@ -2,7 +2,7 @@
  * */
 public class MainClass {
 	public static void main(String []args) {
-		GUI g = new GUI();
+		Game game = new Game();
 		Word.dictInit();
 	}
 
