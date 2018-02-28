@@ -7,18 +7,30 @@ import javax.swing.Timer;
 /*Isaac Wen (2018-02-27)
  * */
 public class Game implements KeyListener, ActionListener{
-	Timer timer;			//Timer mainly used for WPM
+	private Timer timer;			//Timer mainly used for WPM
+	private String input;
+	private GUI gui;
 	public Game() {
 		timer = new Timer(10,this);
+		newGame();
+		gui = new GUI();
+		gui.addKeyListener(this);
+	}
+	public void newGame() {
+		input = "";
+		start();
 	}
 	public void start() {
 		timer.start();
 	}
 	public boolean type(char c) {
-		//Check for typo
+		input += c;
+		update();
 		return false;
 	}
-
+	public void update() {
+		System.out.println(input);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Do something with timer
@@ -27,18 +39,17 @@ public class Game implements KeyListener, ActionListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+		type(e.getKeyChar());
 	}
 }
