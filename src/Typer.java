@@ -3,6 +3,7 @@ public class Typer extends Clickable{
  *
  * Counter for number of purchased
  * WPM
+ * Some sort of math to calculate price
  * Static cumulative WPM
  * */
 }
