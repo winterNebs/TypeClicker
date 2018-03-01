@@ -1,82 +1,65 @@
 import java.awt.BorderLayout;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.net.URL;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Toolkit;
 import java.util.ArrayList;
-
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
-import org.xml.sax.Attributes;
-import org.xml.sax.InputSource;
-import org.xml.sax.helpers.DefaultHandler;
-
-import com.sun.org.apache.xerces.internal.parsers.SAXParser;
 
 /*Isaac Wen (2018-02-27)
  * */
 public class GUI extends JFrame{
-	private String currentType;
+	private int screenScale;
+	private static final int ASPECT_WIDTH = 16;
+	private static final int ASPECT_HEIGHT = 9;
+	private static final double ASPECT_RATIO = (ASPECT_WIDTH/ASPECT_HEIGHT);
+	private JLabel currentType;
+	private JLabel currentText;
+	private Font defaultFont;
+	private ArrayList<JComponent> components;
+	
 	public GUI() {
 		super("Type Clicker");	
-		currentType = "";
-		this.setSize(1280,720);
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		//find smallest dimension
+		if(screenSize.getWidth()/screenSize.getHeight() <= ASPECT_RATIO) {//If taller
+			screenScale = (int)(screenSize.getHeight()/ASPECT_HEIGHT);
+		}		//set screenscale
+		else {	//wider
+			screenScale = (int)(screenSize.getWidth()/ASPECT_WIDTH);
+		}
+		this.setSize((int)(ASPECT_WIDTH * screenScale),(int)(ASPECT_HEIGHT * screenScale));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		init();
 	}
+	private String wordWarp(String s) {
+		return "<html>" + s + "</html>";
+	}
 	private void init() {
+		components = new ArrayList<>();
+		defaultFont = new Font("Times New Roman", 0,screenScale/4);
+		components.add(currentType = new JLabel());
+		currentType.setFont(defaultFont);
+		currentType.setText("");
+		for(JComponent i : components) {
+			this.add(i);
+		}
+		update("");
 		this.setVisible(true);
 	}
 	public void update(String i) {
-		this.removeAll();
-		this.getContentPane().setLayout(new BorderLayout());
-		XMLComponent xmlComponent = new XMLComponent();
-		this.add("Center", xmlComponent.build(this.getClass().getResourceAsStream("/resource/ui.xml")));
-		currentType = i;
+		currentType.setText(i);
 		display();
 	}
 	private void display() {
-
+		currentType.setLocation(new Point(screenScale,screenScale*(ASPECT_HEIGHT-1)));
+		repaint();
 	}
-
+	public void paint(Graphics g) {
+		super.paint(g);
+	}
 	//See drive for layout info
-}
-class XMLComponent extends DefaultHandler {
-	private JPanel primaryContainer = new JPanel();
-	private SAXParser parser = new SAXParser();
-	private ArrayList<JComponent> components = new ArrayList<>();
-	public XMLComponent() {
-		super();
-	}
-	public JComponent build(String xmlDocument) {
-		parser.setContentHandler(this);
-		try {
-			parser.parse(new InputSource(new FileInputStream(xmlDocument)));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return primaryContainer;
-	}
-	public JComponent build(InputStream a) {
-		parser.setContentHandler(this);
-		try {
-			parser.parse(new InputSource(a));
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-		return primaryContainer;
-	}
-	public void startElement(String namespaceURI, String name, String qName, Attributes atts) {
-		if (name.equals("button")) {
-			components.add(new JButton(atts.getValue("label")));
-			primaryContainer.add(components.get(components.size()-1));
-		}
-		if (name.equals("text")) {
-			components.add(new JLabel(atts.getValue("label")));
-			primaryContainer.add(new JLabel(atts.getValue("label")));
-		}
-	}
 }

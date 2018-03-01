@@ -30,6 +30,7 @@ public class Game implements KeyListener, ActionListener{
 	}
 	public void update() {
 		System.out.println(input);
+		gui.update(input);
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
