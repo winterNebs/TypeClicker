@@ -14,6 +14,11 @@ public class Clickable {
     protected String text;
     protected JLabel label;
     protected BufferedImage image;
+    protected int tier;
+    protected final long BASE_PRICE = 100;
+    protected long price;
+    protected String description;
+
     public Clickable() {
         text = "default";
         image = null;
@@ -22,6 +27,7 @@ public class Clickable {
         label = l;
         text = t;
         image = i;
+        label.setLocation(x,y);
         l.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
                 click(e);

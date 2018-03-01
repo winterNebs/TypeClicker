@@ -14,25 +14,19 @@ import java.awt.image.BufferedImage;
 
 public class Upgrade extends Clickable {
 
-    private boolean purchased;
-    private int tier;
-    private String description;
-    private final long BASE_PRICE = 100;
-    private long price;
+    private boolean purchased = false;
 
 
     public Upgrade() {
-        purchased = false;
+        super();
         tier = 0;
         text = "default";
         description = "default";
     }
 
-    public Upgrade(boolean p, int t, String d, JLabel l, String txt, BufferedImage i, int x, int y) {
+    public Upgrade(int t, JLabel l, String txt, BufferedImage i, int x, int y) {
         super(l, txt, i, x, y);
-        purchased = p;
         tier = t;
-        description = d;
     }
 
     protected void click(MouseEvent e) {
