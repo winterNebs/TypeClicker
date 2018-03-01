@@ -10,6 +10,7 @@ public class Game implements KeyListener, ActionListener{
 	private Timer timer;			//Timer mainly used for WPM
 	private String input;
 	private GUI gui;
+	private Word currentText;
 	public Game() {
 		timer = new Timer(10,this);
 		newGame();
@@ -22,6 +23,7 @@ public class Game implements KeyListener, ActionListener{
 	}
 	public void start() {
 		timer.start();
+		currentText = new Word();
 	}
 	public boolean type(char c) {
 		input += c;
@@ -29,28 +31,27 @@ public class Game implements KeyListener, ActionListener{
 		return false;
 	}
 	public void update() {
+		if(currentText.getLength() == 0) {
+			currentText = new Word();
+		}
 		System.out.println(input);
-		gui.update(input);
+		gui.updateInput(input);
 	}
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Do something with timer
 	}
-
-	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-
+		switch(e.getKeyCode()) {
+		case KeyEvent.VK_BACK_SPACE:
+			if(input.length()>0) {
+				input = input.substring(0, input.length()-1); 
+			}
+			update();
+			break;
+		default: type(e.getKeyChar());
+		}
 	}
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		type(e.getKeyChar());
-	}
+	public void keyReleased(KeyEvent e) {}
+	public void keyTyped(KeyEvent e) {}
 }

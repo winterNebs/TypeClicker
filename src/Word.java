@@ -31,10 +31,13 @@ public class Word {
 		}
 	}
 	public Word() {
-		word = "";
+		randomize();
 	}
 	public Word(String w) {
 		word = removeSpace(w);
+	}
+	private void randomize() {
+		word = dictionary.get((int)(Math.random()*dictSize));
 	}
 	private String removeSpace(String s) {
 		String split[] = s.split(" ");

@@ -2,8 +2,8 @@
  * */
 public class MainClass {
 	public static void main(String []args) {
-		Game game = new Game();
 		Word.dictInit();
+		Game game = new Game();
 	}
 
 }

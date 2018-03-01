@@ -41,25 +41,46 @@ public class GUI extends JFrame{
 	private void init() {
 		components = new ArrayList<>();
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
+		
 		components.add(currentType = new JLabel());
 		currentType.setFont(defaultFont);
 		currentType.setText("");
+		
+		components.add(currentText = new JLabel());
+		currentText.setFont(defaultFont);
+		currentType.setText("");
+		
 		for(JComponent i : components) {
 			this.add(i);
 		}
-		update("");
 		this.setVisible(true);
 	}
-	public void update(String i) {
-		currentType.setText(i);
+	private void update(String i, String t) {
+		//if(i != null) {
+			currentType.setText(i);
+			System.out.println(currentType);
+		//}
+		//if(t != null) {
+			currentText.setText(t);
+		//}
 		display();
+	}
+	public void updateInput(String i) {
+		update(i,null);
+	}
+	public void updateText(String t) {
+		update(t,null);
 	}
 	private void display() {
 		currentType.setLocation(new Point(screenScale,screenScale*(ASPECT_HEIGHT-1)));
+		currentText.setLocation(new Point(screenScale, screenScale));
 		repaint();
 	}
 	public void paint(Graphics g) {
 		super.paint(g);
+		for(JComponent i : components) {
+			i.repaint();
+		}
 	}
 	//See drive for layout info
 }
