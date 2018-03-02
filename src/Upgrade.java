@@ -22,6 +22,7 @@ public class Upgrade extends Clickable {
         tier = 0;
         text = "default";
         description = "default";
+
     }
 
     public Upgrade(int t, JLabel l, String txt, BufferedImage i, int x, int y) {
