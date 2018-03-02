@@ -34,7 +34,9 @@ public class Game implements KeyListener, ActionListener{
 		if(currentText.getLength() == 0) {
 			currentText = new Word();
 		}
+		gui.updateText(currentText.toString());
 		System.out.println(input);
+		System.out.println(currentText);
 		gui.updateInput(input);
 	}
 	public void actionPerformed(ActionEvent e) {

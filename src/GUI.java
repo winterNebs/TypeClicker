@@ -1,13 +1,18 @@
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Panel;
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /*Isaac Wen (2018-02-27)
  * */
@@ -19,8 +24,9 @@ public class GUI extends JFrame{
 	private JLabel currentType;
 	private JLabel currentText;
 	private Font defaultFont;
-	private ArrayList<JComponent> components;
-	
+	private JPanel panel;
+	private ArrayList<Component> components = new ArrayList<>();
+
 	public GUI() {
 		super("Type Clicker");	
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -33,54 +39,51 @@ public class GUI extends JFrame{
 		}
 		this.setSize((int)(ASPECT_WIDTH * screenScale),(int)(ASPECT_HEIGHT * screenScale));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setLayout(null);
 		init();
 	}
 	private String wordWarp(String s) {
 		return "<html>" + s + "</html>";
 	}
+	private void setLabel(JLabel l, Font f, int x, int y) {
+		l.setFont(f);
+		l.setBounds(new Rectangle(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getAscent()));
+	}
 	private void init() {
-		components = new ArrayList<>();
+		this.setVisible(false);
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
 		
-		components.add(currentType = new JLabel());
-		currentType.setFont(defaultFont);
-		currentType.setText("");
-		
-		components.add(currentText = new JLabel());
-		currentText.setFont(defaultFont);
-		currentType.setText("");
-		
-		for(JComponent i : components) {
+		components.add(currentType = new JLabel(""));
+		components.add(currentText = new JLabel(""));
+		for(Component i : components) {
 			this.add(i);
 		}
+		update(null,null);
 		this.setVisible(true);
 	}
 	private void update(String i, String t) {
-		//if(i != null) {
+		if(i != null) {
 			currentType.setText(i);
-			System.out.println(currentType);
-		//}
-		//if(t != null) {
+		}
+		if(t != null) {
+			System.out.println(t);
 			currentText.setText(t);
-		//}
+		}
 		display();
 	}
 	public void updateInput(String i) {
 		update(i,null);
 	}
 	public void updateText(String t) {
-		update(t,null);
+		update(null,t);
 	}
 	private void display() {
-		currentType.setLocation(new Point(screenScale,screenScale*(ASPECT_HEIGHT-1)));
-		currentText.setLocation(new Point(screenScale, screenScale));
+		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-1));
+		setLabel(currentText,defaultFont, screenScale,screenScale);
 		repaint();
 	}
 	public void paint(Graphics g) {
 		super.paint(g);
-		for(JComponent i : components) {
-			i.repaint();
-		}
 	}
 	//See drive for layout info
 }
