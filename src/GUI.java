@@ -1,4 +1,5 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -14,6 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+
 /*Isaac Wen (2018-02-27)
  * */
 public class GUI extends JFrame{
@@ -24,7 +26,7 @@ public class GUI extends JFrame{
 	private JLabel currentType;
 	private JLabel currentText;
 	private Font defaultFont;
-	private JPanel panel;
+	private boolean correct;
 	private ArrayList<Component> components = new ArrayList<>();
 
 	public GUI() {
@@ -47,35 +49,37 @@ public class GUI extends JFrame{
 	}
 	private void setLabel(JLabel l, Font f, int x, int y) {
 		l.setFont(f);
-		l.setBounds(new Rectangle(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getAscent()));
+		l.setBounds(new Rectangle(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getHeight()));
 	}
 	private void init() {
 		this.setVisible(false);
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
 		
 		components.add(currentType = new JLabel(""));
+		currentType.setOpaque(true);
 		components.add(currentText = new JLabel(""));
 		for(Component i : components) {
 			this.add(i);
 		}
-		update(null,null);
+		update();
 		this.setVisible(true);
 	}
-	private void update(String i, String t) {
-		if(i != null) {
-			currentType.setText(i);
-		}
-		if(t != null) {
-			System.out.println(t);
-			currentText.setText(t);
-		}
+	public void update() {
 		display();
 	}
-	public void updateInput(String i) {
-		update(i,null);
+	public void updateInput(String i, boolean correct) {
+		if(correct) {
+			currentType.setBackground(new Color(0,0,0,0));
+		}
+		else {
+			currentType.setBackground(new Color(255,0,0,100));
+		}
+		currentType.setText(i);
+		update();
 	}
 	public void updateText(String t) {
-		update(null,t);
+		currentText.setText(t);
+		update();
 	}
 	private void display() {
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-1));

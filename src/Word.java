@@ -56,4 +56,10 @@ public class Word {
 	public int getPoints() {
 		return getLength(); //Fancy math later;
 	}
+	public boolean contains(String s) {
+		return (word.contains(s));
+	}
+	public boolean equals(String s) {
+		return (word.equals(s));
+	}
 }
