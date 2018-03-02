@@ -1,20 +1,16 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Panel;
-import java.awt.Point;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
-
 
 /*Isaac Wen (2018-02-27)
  * */
@@ -30,7 +26,7 @@ public class GUI extends JFrame{
 	private ArrayList<Component> components = new ArrayList<>();
 
 	public GUI() {
-		super("Type Clicker");
+		super("Type Clicker");	
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		//find smallest dimension
 		if(screenSize.getWidth()/screenSize.getHeight() <= ASPECT_RATIO) {//If taller
@@ -42,6 +38,7 @@ public class GUI extends JFrame{
 		this.setSize((int)(ASPECT_WIDTH * screenScale),(int)(ASPECT_HEIGHT * screenScale));
 		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setLayout(null);
+		this.setVisible(false);
 		init();
 	}
 	private String wordWarp(String s) {
@@ -52,12 +49,13 @@ public class GUI extends JFrame{
 		l.setBounds(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getHeight());
 	}
 	private void init() {
-		this.setVisible(false);
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
-
+		
 		components.add(currentType = new JLabel(""));
 		currentType.setOpaque(true);
 		components.add(currentText = new JLabel(""));
+		currentText.setOpaque(true);
+		currentText.setBackground(new Color(100,100,100,50));
 		for(Component i : components) {
 			this.add(i);
 		}
@@ -82,9 +80,24 @@ public class GUI extends JFrame{
 		update();
 	}
 	private void display() {
-		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-1));
+		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
 		setLabel(currentText,defaultFont, screenScale,screenScale);
 		repaint();
 	}
+	public void paint(Graphics g) {
+		BufferedImage buffer = new BufferedImage(screenScale*ASPECT_WIDTH,screenScale*ASPECT_HEIGHT,BufferedImage.TYPE_INT_ARGB);
+		Graphics2D b = buffer.createGraphics();
+	    b.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+        b.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+        b.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
 
+		super.paint(b);
+		b.setColor(new Color(0,0,0));
+		b.drawRect(currentText.getLocation().x, currentText.getLocation().y,currentText.getLocation().x+screenScale*4, currentText.getLocation().y+screenScale*4);
+		b.dispose();
+		Graphics2D g2dComponent = (Graphics2D) g;
+		g2dComponent.drawImage(buffer, null, 0, 0); 
+	}
+	
+	//See drive for layout info
 }
