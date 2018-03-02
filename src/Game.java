@@ -15,6 +15,7 @@ public class Game implements KeyListener, ActionListener{
 		timer = new Timer(10,this);
 		gui = new GUI();
 		gui.addKeyListener(this);
+		gui.setDefaultCloseOperation(3);
 		newGame();
 	}
 	public void newGame() {
@@ -52,7 +53,7 @@ public class Game implements KeyListener, ActionListener{
 		input = "";
 	}
 	public void actionPerformed(ActionEvent e) {
-		//Do something with timer
+		update();
 	}
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
 		if(currentText.equals(input)) {

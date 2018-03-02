@@ -30,7 +30,7 @@ public class GUI extends JFrame{
 	private ArrayList<Component> components = new ArrayList<>();
 
 	public GUI() {
-		super("Type Clicker");	
+		super("Type Clicker");
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		//find smallest dimension
 		if(screenSize.getWidth()/screenSize.getHeight() <= ASPECT_RATIO) {//If taller
@@ -49,12 +49,12 @@ public class GUI extends JFrame{
 	}
 	private void setLabel(JLabel l, Font f, int x, int y) {
 		l.setFont(f);
-		l.setBounds(new Rectangle(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getHeight()));
+		l.setBounds(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getHeight());
 	}
 	private void init() {
 		this.setVisible(false);
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
-		
+
 		components.add(currentType = new JLabel(""));
 		currentType.setOpaque(true);
 		components.add(currentText = new JLabel(""));
@@ -86,8 +86,5 @@ public class GUI extends JFrame{
 		setLabel(currentText,defaultFont, screenScale,screenScale);
 		repaint();
 	}
-	public void paint(Graphics g) {
-		super.paint(g);
-	}
-	//See drive for layout info
+
 }
