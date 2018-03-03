@@ -20,6 +20,7 @@ public class Typer extends Clickable {
 	private int WPM;
 	private static int cWPM = 0;
 	private long moneyHave;
+	private static final int MAX_TIER = 8;
 
 	public Typer() {
 		super();
@@ -37,54 +38,45 @@ public class Typer extends Clickable {
 	public Typer(int t, Rectangle b) {
 		super(b);
 		tier = t;
-		tier();
 		update();
 	}
-	static void initTier() {
+	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
 		tierText = new ArrayList<>();
-		tierText.add(tierAdd("Intern","Hire a poor intern to scribe for you"));
+		tierAdd("Intern","Hire a poor intern to scribe for you");
+	/*case 1:
+		text = "Intern";
+		description = "Lowest tier typer, hand writes";
+		break;
+	case 2:
+		text = "TextToSpeech";
+		description = "Second tier typer";
+		break;
+	case 3:
+		text = "CellPhone";
+		description = "better than text to speech, but still slow";
+		break;
+	case 4:
+		text = "TypeWriter ";
+		description = "Better than cellphone, but still kind of trash";
+		break;
+	case 5:
+		text = "Computer";
+		description = "Basic typer, increases WPM by low amount, faster than typewriter";
+		break;
+	case 6:
+		text = "Supern Computer";
+		description = "Awesome typer, much fast WPM";
+		break;
+	case 7:
+		text = "Quantum Computer";
+		description = "Super good typer, much much fast WPM";
+		break;
+	case 8:
+		text = "Inter-dimensional Typer";
+		description = "The ultimate, the best, the fastest, annnnnd the most expensive";
+		break;*/
 	}
-	private static String[] tierAdd(String a, String b) {
-		String[] s = {a,b};
-		return s;
-	}
-	private void tier() {	//Redo descriptions to have flavor text. Player will be able to tell which is better...
 
-		switch (tier) {
-		case 1:
-			text = "Intern";
-			description = "Lowest tier typer, hand writes";
-			break;
-		case 2:
-			text = "TextToSpeech";
-			description = "Second tier typer";
-			break;
-		case 3:
-			text = "CellPhone";
-			description = "better than text to speech, but still slow";
-			break;
-		case 4:
-			text = "TypeWriter ";
-			description = "Better than cellphone, but still kind of trash";
-			break;
-		case 5:
-			text = "Computer";
-			description = "Basic typer, increases WPM by low amount, faster than typewriter";
-			break;
-		case 6:
-			text = "Supern Computer";
-			description = "Awesome typer, much fast WPM";
-			break;
-		case 7:
-			text = "Quantum Computer";
-			description = "Super good typer, much much fast WPM";
-			break;
-		case 8:
-			text = "Inter-dimensional Typer";
-			description = "The ultimate, the best, the fastest, annnnnd the most expensive";
-			break;
-		}
-	}
 
 	protected void click(MouseEvent e) {
 		if(moneyHave >= price) {

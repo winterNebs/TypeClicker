@@ -15,6 +15,8 @@ public class Game implements KeyListener, ActionListener{
 	private GUI gui;
 	private WordList words;
 	public Game() {
+		Typer.initTier();
+		Upgrade.initTier();
 		timer = new Timer(10,this);
 		gui = new GUI();
 		gui.addKeyListener(this);

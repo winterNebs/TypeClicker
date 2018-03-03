@@ -2,17 +2,9 @@
 
 //Shawn Hu Feb 27th
 
-import javax.swing.*;
-
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-
-/**
- * TODO:
- * Is a clickable
- * Purchased boolean
- */
+import java.util.ArrayList;
 
 public class Upgrade extends Clickable {
 	protected final int MAX_TIER = 5;
@@ -29,15 +21,11 @@ public class Upgrade extends Clickable {
 	public Upgrade(int t, Rectangle b) {
 		super(b);
 		tier = t;
-		tier();
 	}
-	private void tier() {
-		switch (tier) {
-		case 1:
-			text = "Pen";
-			description = "Default, cannot use backspace";
-			break;
-		case 2:
+	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
+		tierText = new ArrayList<>();
+		tierAdd("Pen","Your first writing utensil");
+		/*case 2:
 			text = "Pencil";
 			description = "Unlocks backspace";
 			break;
@@ -52,9 +40,9 @@ public class Upgrade extends Clickable {
 		case 5:
 			text = "eyes";
 			description = "Lets you see the whole word";
-			break;
-		}
+			break;*/
 	}
+
 	protected void click(MouseEvent e) {
 		if (!purchased) {
 			purchased = true;

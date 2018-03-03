@@ -18,7 +18,6 @@ import java.util.ArrayList;
  * Image for the icon
  * */
 public class Clickable {
-	protected static int MAX_TIER;
 	public String text;
     protected JLabel label;
     protected int tier;
@@ -59,5 +58,9 @@ public class Clickable {
     }
     protected void click(MouseEvent e) {
     	//Click stuff
+    }
+    protected static void tierAdd(String a, String b) {
+		String[] s = {a,b};
+		tierText.add(s);
     }
 }
