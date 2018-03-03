@@ -2,20 +2,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.Timer;
 /*Isaac Wen (2018-02-27)
+ * Shawn Hu (2018-03-02)
+ * Rheana Thomas (2018-03-02)
  * */
 public class Game implements KeyListener, ActionListener{
 	private Timer timer;			//Timer mainly used for WPM
 	private String input;
 	private GUI gui;
-	private Word currentText;
+	private WordList words;
 	public Game() {
 		timer = new Timer(10,this);
 		gui = new GUI();
 		gui.addKeyListener(this);
-		gui.setDefaultCloseOperation(3);
 		newGame();
 	}
 	public void newGame() {
@@ -24,7 +26,7 @@ public class Game implements KeyListener, ActionListener{
 	}
 	public void start() {
 		timer.start();
-		currentText = new Word();
+		words = new WordList(30);
 		update();
 	}
 	public boolean type(char c) {
@@ -33,12 +35,7 @@ public class Game implements KeyListener, ActionListener{
 		return false;
 	}
 	public void update() {
-		if(currentText.getLength() == 0) {
-			currentText = new Word();
-		}
-		gui.updateText(currentText.toString());
-		System.out.println(input);
-		System.out.println(currentText);
+		gui.updateText(words.toString());
 		switch(check()) {
 		case 0: gui.updateInput(input,true); break;
 		case 1: gui.updateInput(input, false); break;
@@ -48,18 +45,18 @@ public class Game implements KeyListener, ActionListener{
 			break;
 		}
 	}
-	public void newWord() {
-		currentText = new Word();
+	private void newWord() {
+		//currentText = new Word();
 		input = "";
 	}
 	public void actionPerformed(ActionEvent e) {
 		update();
 	}
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
-		if(currentText.equals(input)) {
+		if(words.checkComplete(input)) {
 			return 2;
 		}
-		if(currentText.contains(input)) {
+		if(words.checkContains(input)) {
 			return 0;
 		}
 		return 1;
@@ -74,7 +71,9 @@ public class Game implements KeyListener, ActionListener{
 			}
 			update();
 			break;
-		case KeyEvent.VK_SPACE: update(); break;
+		//case KeyEvent.VK_SPACE: update(); break;
+		case KeyEvent.VK_CONTROL: break;
+		case KeyEvent.VK_ESCAPE: break;
 		default: type(e.getKeyChar());
 		}
 	}

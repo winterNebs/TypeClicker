@@ -11,6 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /*Isaac Wen (2018-02-27)
  * */
@@ -22,7 +23,7 @@ public class GUI extends JFrame{
 	private JLabel currentType;
 	private JLabel currentText;
 	private Font defaultFont;
-	private boolean correct;
+	private JPanel upgradeList;
 	private ArrayList<Component> components = new ArrayList<>();
 
 	public GUI() {
@@ -36,12 +37,12 @@ public class GUI extends JFrame{
 			screenScale = (int)(screenSize.getWidth()/ASPECT_WIDTH);
 		}
 		this.setSize((int)(ASPECT_WIDTH * screenScale),(int)(ASPECT_HEIGHT * screenScale));
-		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		this.setDefaultCloseOperation(3);
 		this.setLayout(null);
 		this.setVisible(false);
 		init();
 	}
-	private String wordWarp(String s) {
+	private String wordWrap(String s) {
 		return "<html>" + s + "</html>";
 	}
 	private void setLabel(JLabel l, Font f, int x, int y) {
@@ -50,6 +51,7 @@ public class GUI extends JFrame{
 	}
 	private void init() {
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
+		upgradeList = new JPanel(null);
 		
 		components.add(currentType = new JLabel(""));
 		currentType.setOpaque(true);
@@ -76,12 +78,14 @@ public class GUI extends JFrame{
 		update();
 	}
 	public void updateText(String t) {
-		currentText.setText(t);
+		currentText.setText(wordWrap(t));
 		update();
 	}
 	private void display() {
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
-		setLabel(currentText,defaultFont, screenScale,screenScale);
+		//setLabel(currentText,defaultFont, screenScale,screenScale);
+		currentText.setFont(defaultFont);
+		currentText.setBounds(screenScale,screenScale,screenScale*4,screenScale*4);
 		repaint();
 	}
 	public void paint(Graphics g) {
@@ -93,7 +97,8 @@ public class GUI extends JFrame{
 
 		super.paint(b);
 		b.setColor(new Color(0,0,0));
-		b.drawRect(currentText.getLocation().x, currentText.getLocation().y,currentText.getLocation().x+screenScale*4, currentText.getLocation().y+screenScale*4);
+		b.drawRect(currentText.getX(), currentText.getY(),screenScale*4, currentText.getY()+screenScale*4);
+		b.drawRect(currentType.getX(), currentType.getY()+currentType.getHeight(),screenScale*4, currentType.getHeight());
 		b.dispose();
 		Graphics2D g2dComponent = (Graphics2D) g;
 		g2dComponent.drawImage(buffer, null, 0, 0); 
