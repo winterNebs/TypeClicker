@@ -77,8 +77,6 @@ public class GUI extends JFrame{
 		this.add(mainPanel);
 		this.add(menuPanel);
 		display();
-		typerScroll.setBounds(typerList.getX(),typerList.getY(),typerList.getWidth()+typerScroll.getVerticalScrollBar().getWidth(),screenScale*(ASPECT_HEIGHT-3));
-		typerScroll.revalidate();
 		repaint();
 		this.setVisible(true);
 	}
@@ -89,6 +87,12 @@ public class GUI extends JFrame{
 		for(int i = 0; i < Typer.getMax(); i++ ) {
 			typerList.add(new Typer(i,new Dimension((int)(screenScale*1.5),(int)(screenScale*.75))));
 		}
+		typerList.setBounds(0,0, screenScale*2,(int)(screenScale*.75*Typer.getMax()));
+		typerList.setBackground(Color.green);
+		typerList.setOpaque(true);
+
+		typerScroll.setBounds(typerList.getX(),typerList.getY(),typerList.getWidth()+typerScroll.getVerticalScrollBar().getWidth(),screenScale*(ASPECT_HEIGHT-3));
+
 	}
 	public void updateInput(String i, boolean correct) {
 		if(correct) {
@@ -107,15 +111,12 @@ public class GUI extends JFrame{
 		repaint();
 	}
 	private void display() {
-		
+		JScrollBar temp = null;
 		mainPanel.setBounds(0,0,screenScale*(ASPECT_WIDTH-6),screenScale*ASPECT_HEIGHT);
 		menuPanel.setBounds(screenScale*(ASPECT_WIDTH-6),0,screenScale*(ASPECT_WIDTH),screenScale*ASPECT_HEIGHT);
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
 		currentText.setFont(defaultFont);
 		currentText.setBounds(screenScale,screenScale,screenScale*4,screenScale*4);
-		typerList.setBounds(0,0, screenScale*2,(int)(screenScale*.75*Typer.getMax()));
-		typerList.setBackground(Color.green);
-		typerList.setOpaque(true);
 
 	}
 	public void paint(Graphics g) {
