@@ -57,7 +57,10 @@ public class Word {
 		return getLength(); //Fancy math later;
 	}
 	public boolean contains(String s) {
-		return (word.contains(s));
+		if(s.length()>word.length()) {
+			return false;
+		}
+		return (word.substring(0,s.length()).contains(s));
 	}
 	public boolean equals(String s) {
 		return (word.equals(s));

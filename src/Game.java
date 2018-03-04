@@ -2,8 +2,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.ArrayList;
-
 import javax.swing.Timer;
 /*Isaac Wen (2018-02-27)
  * Shawn Hu (2018-03-02)
@@ -71,13 +69,13 @@ public class Game implements KeyListener, ActionListener{
 			if(input.length()>0) {
 				input = input.substring(0, input.length()-1); 
 			}
-			update();
 			break;
 		//case KeyEvent.VK_SPACE: update(); break;
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
 		default: type(e.getKeyChar());
 		}
+		update();
 	}
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}

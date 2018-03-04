@@ -1,8 +1,8 @@
 import javax.swing.*;
 
+import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 /* Isaac Wen (2018-03-02)
  * Shawn Hu (2018-02-28)
@@ -20,14 +20,9 @@ public class Typer extends Clickable {
 	private int WPM;
 	private static int cWPM = 0;
 	private long moneyHave;
-	private static final int MAX_TIER = 8;
+    protected static ArrayList<String[]> tierText;
 
 	public Typer() {
-		super();
-		numPurchased = 0;
-		WPM = 0;
-		price = 0;
-		tier = 0;
 	}
 	/**Set Buffered Image
 	 * 
@@ -35,14 +30,27 @@ public class Typer extends Clickable {
 	 * 
 	 * 
 	 * */
-	public Typer(int t, Rectangle b) {
-		super(b);
-		tier = t;
+	public Typer(int t, Dimension s) {
+		super(t, s);
+		setTier();
 		update();
 	}
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
 		tierText = new ArrayList<>();
 		tierAdd("Intern","Hire a poor intern to scribe for you");
+		tierAdd("1","desc");
+		tierAdd("2","desc");
+		tierAdd("3","desc");
+		tierAdd("4","desc");
+		tierAdd("5","desc");
+		tierAdd("6","desc");
+		tierAdd("7","desc");
+		tierAdd("8","desc");
+		tierAdd("9","desc");
+		tierAdd("10","desc");
+		tierAdd("11","desc");
+		tierAdd("12","desc");
+		
 	/*case 1:
 		text = "Intern";
 		description = "Lowest tier typer, hand writes";
@@ -95,6 +103,17 @@ public class Typer extends Clickable {
 	public void update() {
 		price = (long) (Math.pow(tier * BASE_PRICE, tier) * numPurchased);
 		super.update();
+	}
+    protected static void tierAdd(String a, String b) {
+		String[] s = {a,b};
+		tierText.add(s);
+    }
+	static int getMax() {
+		return tierText.size();
+	}
+	protected void setTier() {
+		text = tierText.get(tier)[0];
+		description = tierText.get(tier)[1];
 	}
 }
 

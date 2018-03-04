@@ -1,15 +1,12 @@
 import javax.swing.*;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-//Isaac Wen (2018-03-02)
-//Shawn Hu, Feb 27th
-import java.util.ArrayList;
 
 /**TODO:
  * Have some sort of output/draw feature. This can be either returning or drawing directly. (JComponent/JLabel)
@@ -17,22 +14,21 @@ import java.util.ArrayList;
  * Size/Pos for drawing
  * Image for the icon
  * */
-public class Clickable {
+public class Clickable extends JLabel{
 	public String text;
-    protected JLabel label;
     protected int tier;
     protected final long BASE_PRICE = 100;
     protected long price;
     protected String description;
-    protected Rectangle bounds;
-    protected static ArrayList<String[]> tierText;
+    protected Dimension size;
     public Clickable() {
 
     }
-    public Clickable(Rectangle b) {
-        label = new JLabel();
-        bounds = b;
-        label.addMouseListener(new MouseListener() {
+    public Clickable(int t, Dimension s) {
+        super();
+        tier = t;
+        size = s;
+        this.addMouseListener(new MouseListener() {
             public void mouseClicked(MouseEvent e) {
                 click(e);
             }
@@ -43,24 +39,24 @@ public class Clickable {
         });
     }
     protected void update() {
-    	 label.setIcon(new ImageIcon(createImage()));
-         label.setBounds(bounds);
+    	 this.setIcon(new ImageIcon(createImage()));
+    	 this.setSize(size);
+    }
+    public void paint(Graphics g) {
+    	update();
+    	super.paint(g);
     }
     protected BufferedImage createImage() {
-    	BufferedImage img = new BufferedImage(bounds.width,bounds.height,BufferedImage.TYPE_INT_ARGB);
+    	BufferedImage img = new BufferedImage(size.width,size.height,BufferedImage.TYPE_INT_ARGB);
     	Graphics2D g = img.createGraphics();
-    	g.setColor(Color.gray);
-    	g.fillRect(0,0,bounds.width, bounds.height);
+    	g.setColor(new Color(200,200,200));
+    	g.fillRect(0,0,size.width, size.height);
     	g.setColor(Color.black);
-    	g.drawRect(0, 0, bounds.width, bounds.height);
-    	g.drawString(text, 0, bounds.width/2);
+    	g.drawRect(0, 0, size.width, size.height);
+    	g.drawString(text, 0, size.width/2);
     	return img;
     }
     protected void click(MouseEvent e) {
     	//Click stuff
-    }
-    protected static void tierAdd(String a, String b) {
-		String[] s = {a,b};
-		tierText.add(s);
     }
 }
