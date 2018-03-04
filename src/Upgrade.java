@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class Upgrade extends Clickable {
-	public final int MAX_TIER = 5;
 
 	private boolean purchased = false;
     protected static ArrayList<String[]> tierText;
@@ -27,6 +26,11 @@ public class Upgrade extends Clickable {
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
 		tierText = new ArrayList<>();
 		tierAdd("Pen","Your first writing utensil");
+		tierAdd("1","desc");
+		tierAdd("2","desc");
+		tierAdd("3","desc");
+		tierAdd("4","desc");
+		
 		/*case 2:
 			text = "Pencil";
 			description = "Unlocks backspace";

@@ -29,6 +29,7 @@ public class GUI extends JFrame{
 	private Font defaultFont;
 	private JPanel upgradeList;
 	private JPanel typerList;
+	private JScrollPane upgradeScroll;
 	private JScrollPane typerScroll;
 	private JPanel mainPanel;
 	private JPanel menuPanel;
@@ -62,9 +63,9 @@ public class GUI extends JFrame{
 		menuPanel = new JPanel(null);
 		menuPanel.setOpaque(false);
 		defaultFont = new Font("Times New Roman", 0,screenScale/4);
-		menuPanel.add(upgradeList = new JPanel(null));
 		//components.add();
 		menuPanel.add(typerScroll = new JScrollPane(typerList = new JPanel(new GridLayout(Typer.getMax(),0)),JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
+		menuPanel.add(upgradeScroll = new JScrollPane(upgradeList = new JPanel(new GridLayout(Upgrade.getMax(),0)),JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER));
 
 		initUpgrades();
 		initTypers();
@@ -81,17 +82,24 @@ public class GUI extends JFrame{
 		this.setVisible(true);
 	}
 	private void initUpgrades() {
+		for(int i = 0; i < Upgrade.getMax(); i++ ) {
+			upgradeList.add(new Upgrade(i,new Dimension((int)(screenScale*1.5),(int)(screenScale*.75))));
+		}
+		upgradeList.setBounds(0,0, (int)(screenScale*1.5),(int)(screenScale*.75*Upgrade.getMax()));
+		upgradeList.setBackground(Color.green);
+		upgradeList.setOpaque(true);
 
+		upgradeScroll.setBounds((int)(screenScale*1.5),screenScale,upgradeList.getWidth()+upgradeScroll.getVerticalScrollBar().getWidth(),screenScale*(ASPECT_HEIGHT-3));
 	}
 	private void initTypers() {
 		for(int i = 0; i < Typer.getMax(); i++ ) {
 			typerList.add(new Typer(i,new Dimension((int)(screenScale*1.5),(int)(screenScale*.75))));
 		}
-		typerList.setBounds(0,0, screenScale*2,(int)(screenScale*.75*Typer.getMax()));
+		typerList.setBounds(0,0, (int)(screenScale*1.5),(int)(screenScale*.75*Typer.getMax()));
 		typerList.setBackground(Color.green);
 		typerList.setOpaque(true);
 
-		typerScroll.setBounds(typerList.getX(),typerList.getY(),typerList.getWidth()+typerScroll.getVerticalScrollBar().getWidth(),screenScale*(ASPECT_HEIGHT-3));
+		typerScroll.setBounds(0,screenScale,typerList.getWidth()+typerScroll.getVerticalScrollBar().getWidth(),screenScale*(ASPECT_HEIGHT-3));
 
 	}
 	public void updateInput(String i, boolean correct) {
