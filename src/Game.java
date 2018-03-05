@@ -84,8 +84,7 @@ public class Game implements KeyListener, Runnable{
 		while(true) {
 			try {
 				if(updateLoops >= LOOP_COUNT) {
-					double wpm = (charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops);
-					System.out.println("WPM: " + wpm + ", Chars: " + charCount + ", Loops: " + updateLoops);	
+					gui.updateWPM((charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops));
 					charCount = 0;
 					updateLoops = 0;
 				}
