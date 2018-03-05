@@ -1,26 +1,23 @@
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import javax.swing.Timer;
 /*Isaac Wen (2018-02-27)
  * Shawn Hu (2018-03-02)
  * Rheana Thomas (2018-03-02)
  * */
-public class Game implements KeyListener, ActionListener{
+public class Game implements KeyListener, Runnable{
+	private Thread thread;
 	private final static int INTERVAL = 10;
 	private final static int WORD_LENGTH = 5;
 	private final static int LOOP_COUNT = 500;
 	private int updateLoops = 0;
-	private Timer timer;			//Timer mainly used for WPM
 	private String input;
 	private GUI gui;
 	private WordList words;
 	private int charCount;
 	public Game() {
+		thread = new Thread(this);
 		Typer.initTier();
 		Upgrade.initTier();
-		timer = new Timer(INTERVAL,this);
 		gui = new GUI();
 		gui.addKeyListener(this);
 		newGame();
@@ -30,10 +27,10 @@ public class Game implements KeyListener, ActionListener{
 		start();
 	}
 	public void start() {
-		timer.start();
 		charCount = 0;
 		words = new WordList(30);
 		update();
+		thread.start();
 	}
 	public boolean type(char c) {
 		input += c;
@@ -55,19 +52,6 @@ public class Game implements KeyListener, ActionListener{
 	private void newWord() {
 		//currentText = new Word();
 		input = "";
-	}
-	public void actionPerformed(ActionEvent e) {
-		if(updateLoops >= LOOP_COUNT) {
-			double wpm = (charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops);
-			System.out.println("WPM: " + wpm + ", Chars: " + charCount + ", Loops: " + updateLoops);	
-			charCount = 0;
-			updateLoops = 0;
-		}
-		else {
-			updateLoops++;
-		}
-		System.out.println(updateLoops);
-		update();
 	}
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
 		if(words.checkComplete(input)) {
@@ -96,4 +80,24 @@ public class Game implements KeyListener, ActionListener{
 	}
 	public void keyReleased(KeyEvent e) {}
 	public void keyTyped(KeyEvent e) {}
+	public void run() {
+		while(true) {
+			try {
+				if(updateLoops >= LOOP_COUNT) {
+					double wpm = (charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops);
+					System.out.println("WPM: " + wpm + ", Chars: " + charCount + ", Loops: " + updateLoops);	
+					charCount = 0;
+					updateLoops = 0;
+				}
+				else {
+					updateLoops++;
+				}
+				//System.out.println(updateLoops);
+				update();
+				Thread.sleep(INTERVAL);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
