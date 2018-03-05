@@ -26,6 +26,7 @@ public class GUI extends JFrame{
 	private static final double ASPECT_RATIO = (ASPECT_WIDTH/ASPECT_HEIGHT);
 	private JLabel currentType;
 	private JLabel currentText;
+	private JLabel currentWPM;
 	private Font defaultFont;
 	private JPanel upgradeList;
 	private JPanel typerList;
@@ -75,6 +76,9 @@ public class GUI extends JFrame{
 		mainPanel.add(currentText = new JLabel(""));
 		currentText.setOpaque(true);
 		currentText.setBackground(new Color(100,100,100,50));
+
+//		currentWPM.setOpaque(true);
+		mainPanel.add(currentWPM = new JLabel(""));
 		this.add(mainPanel);
 		this.add(menuPanel);
 		display();
@@ -117,6 +121,14 @@ public class GUI extends JFrame{
 		currentText.setText(wordWrap(t));
 		//display();
 		repaint();
+	}
+	public void updateWPM(int w){
+		currentWPM.setText(w + "");
+		setLabel(currentType,defaultFont, screenScale*(ASPECT_WIDTH-10), screenScale);
+		repaint();
+	}
+	public void updateScorePoints(){
+
 	}
 	private void display() {
 		JScrollBar temp = null;
