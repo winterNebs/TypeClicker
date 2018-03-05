@@ -37,4 +37,7 @@ public class WordList {
 		}
 		return false;
 	}
+	public Word getWord(){
+		return words.get(0);
+	}
 }

@@ -27,6 +27,7 @@ public class GUI extends JFrame{
 	private JLabel currentType;
 	private JLabel currentText;
 	private JLabel currentWPM;
+	private JLabel currentScore;
 	private Font defaultFont;
 	private JPanel upgradeList;
 	private JPanel typerList;
@@ -76,9 +77,11 @@ public class GUI extends JFrame{
 		mainPanel.add(currentText = new JLabel(""));
 		currentText.setOpaque(true);
 		currentText.setBackground(new Color(100,100,100,50));
-
 //		currentWPM.setOpaque(true);
 		mainPanel.add(currentWPM = new JLabel(""));
+		mainPanel.add(currentScore = new JLabel(""));
+		updateWPM(0);
+		updateScorePoints(0);
 		this.add(mainPanel);
 		this.add(menuPanel);
 		display();
@@ -123,12 +126,12 @@ public class GUI extends JFrame{
 		repaint();
 	}
 	public void updateWPM(int w){
-		currentWPM.setText(w + "");
-		setLabel(currentType,defaultFont, screenScale*(ASPECT_WIDTH-10), screenScale);
+		currentWPM.setText("Words per Minute: " + w);
 		repaint();
 	}
-	public void updateScorePoints(){
-
+	public void updateScorePoints(long s){
+		currentScore.setText("Score: " + s);
+		repaint();
 	}
 	private void display() {
 		JScrollBar temp = null;
@@ -137,6 +140,8 @@ public class GUI extends JFrame{
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
 		currentText.setFont(defaultFont);
 		currentText.setBounds(screenScale,screenScale,screenScale*4,screenScale*4);
+		setLabel(currentWPM,defaultFont, screenScale*(ASPECT_WIDTH-10), screenScale);
+		setLabel(currentScore,defaultFont, screenScale*(ASPECT_WIDTH-10), currentWPM.getY()+currentWPM.getHeight());
 
 	}
 	public void paint(Graphics g) {

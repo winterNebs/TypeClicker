@@ -14,6 +14,7 @@ public class Game implements KeyListener, Runnable{
 	private GUI gui;
 	private WordList words;
 	private int charCount;
+	private long points;
 	public Game() {
 		thread = new Thread(this);
 		Typer.initTier();
@@ -28,6 +29,7 @@ public class Game implements KeyListener, Runnable{
 	}
 	public void start() {
 		charCount = 0;
+		points = 0;
 		words = new WordList(30);
 		update();
 		thread.start();
@@ -43,9 +45,10 @@ public class Game implements KeyListener, Runnable{
 		switch(check()) {
 		case 0: gui.updateInput(input,true); break;
 		case 1: gui.updateInput(input, false); break;
-		case 2: 
+		case 2:
+			points += words.getWord().getPoints();
 			newWord();
-			gui.updateInput(input, true);
+			gui.updateScorePoints(points);
 			break;
 		}
 	}
