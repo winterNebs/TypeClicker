@@ -26,27 +26,15 @@ public class Upgrade extends Clickable {
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
 		tierText = new ArrayList<>();
 		tierAdd("Pen","Your first writing utensil");
-		tierAdd("1","desc");
-		tierAdd("2","desc");
-		tierAdd("3","desc");
-		tierAdd("4","desc");
-		
-		/*case 2:
-			text = "Pencil";
-			description = "Unlocks backspace";
-			break;
-		case 3:
-			text = "Membrane Keyboard";
-			description = "Unlocks certain letters (Letters that aren't symbols or numbers)";
-			break;
-		case 4:
-			text = "Mechanical Keyboard";
-			description = "Unlocks full keyboard (\"Easy Keys\")";
-			break;
-		case 5:
-			text = "eyes";
-			description = "Lets you see the whole word";
-			break;*/
+		tierAdd("Brain","Allows you to read");
+		tierAdd("Eyes", "You can finally see");
+		tierAdd("Pencil","Allows you to erase");
+		tierAdd("Membrane Keyboard","Writing was difficult, this one comes with letters. It seems to be missing some keys");
+		tierAdd("Mechanical Keyboard","Your first real keyboard");
+		tierAdd("Upgrade","Desc");
+		tierAdd("Upgrade","Desc");
+		tierAdd("Upgrade","Desc");
+
 	}
 
 	protected void click(MouseEvent e) {

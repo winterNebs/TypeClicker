@@ -35,7 +35,6 @@ public class GUI extends JFrame{
 	private JScrollPane typerScroll;
 	private JPanel mainPanel;
 	private JPanel menuPanel;
-
 	public GUI() {
 		super("Type Clicker");	
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -134,7 +133,6 @@ public class GUI extends JFrame{
 		repaint();
 	}
 	private void display() {
-		JScrollBar temp = null;
 		mainPanel.setBounds(0,0,screenScale*(ASPECT_WIDTH-6),screenScale*ASPECT_HEIGHT);
 		menuPanel.setBounds(screenScale*(ASPECT_WIDTH-6),0,screenScale*(ASPECT_WIDTH),screenScale*ASPECT_HEIGHT);
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
@@ -155,7 +153,7 @@ public class GUI extends JFrame{
 		b.setColor(new Color(0,0,0));
 		b.drawRect(currentText.getX(), currentText.getY(),currentText.getWidth(), currentText.getHeight());
 		b.drawRect(currentType.getX(), currentType.getY()+currentType.getHeight(),screenScale*4, currentType.getHeight());
-
+		b.drawRect(currentWPM.getX(), currentWPM.getY(), screenScale*4, screenScale*6);
 		g.drawImage(buffer, 0, 0, this);
 
 	}

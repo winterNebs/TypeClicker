@@ -7,13 +7,13 @@ import java.util.HashMap;
  * */
 
 public class Word {
-/**TODO:
- * Static list of all words
- * Number of letters in word (not really that necessary lol)
- * Actual value of word
- * Static Constants of special bonus characters?
- * 
- * */
+	/**TODO:
+	 * Static list of all words
+	 * Number of letters in word (not really that necessary lol)
+	 * Actual value of word
+	 * Static Constants of special bonus characters?
+	 * 
+	 * */
 	private String word;
 	static HashMap<Integer, String> dictionary = new HashMap<Integer, String>();
 	static int dictSize;
@@ -53,13 +53,11 @@ public class Word {
 		return word.length();
 	}
 	public int getPoints() {
-	int points;
-	points = word.length()/Game.WORD_LENGTH;
-	if(points==0){
-		return 1 ;
-	}
-	return points;
-	
+		int points = word.length()/Game.WORD_LENGTH;
+		if(points==0){
+			return 1 ;
+		}
+		return points;
 	}
 	public boolean contains(String s) {
 		if(s.length()>word.length()) {

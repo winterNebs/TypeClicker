@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class WordList {
 	private ArrayList<Word> words;
 	private int length;
+	public Word lastWord;
+	
 	public WordList() {
 		
 	}
@@ -25,7 +27,7 @@ public class WordList {
 	}
 	public boolean checkComplete(String i) {
 		if((words.get(0)+" ").equals(i)) {
-			words.remove(0);
+			lastWord = words.remove(0);
 			update();
 			return true;
 		}

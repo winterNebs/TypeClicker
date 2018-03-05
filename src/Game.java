@@ -46,16 +46,13 @@ public class Game implements KeyListener, Runnable{
 		case 0: gui.updateInput(input,true); break;
 		case 1: gui.updateInput(input, false); break;
 		case 2:
-			points += words.getWord().getPoints();
-			newWord();
+			points += words.lastWord.getPoints();
+			input = "";
 			gui.updateScorePoints(points);
 			break;
 		}
 	}
-	private void newWord() {
-		//currentText = new Word();
-		input = "";
-	}
+
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
 		if(words.checkComplete(input)) {
 			return 2;
