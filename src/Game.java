@@ -17,6 +17,7 @@ public class Game implements KeyListener, Runnable{
 	private long points;
 	public Game() {
 		thread = new Thread(this);
+		Clickable.setGame(this);
 		Typer.initTier();
 		Upgrade.initTier();
 		gui = new GUI();
@@ -48,9 +49,11 @@ public class Game implements KeyListener, Runnable{
 		case 2:
 			points += words.lastWord.getPoints();
 			input = "";
-			gui.updateScorePoints(points);
+			gui.updateInput(input, true);
 			break;
 		}
+		gui.updateScorePoints(points);
+		Clickable.updateMoney(points);
 	}
 
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
@@ -98,5 +101,8 @@ public class Game implements KeyListener, Runnable{
 				e.printStackTrace();
 			}
 		}
+	}
+	public void clickableClick(Clickable c) {
+		points -= c.getPrice();
 	}
 }

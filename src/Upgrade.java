@@ -2,16 +2,20 @@
 
 //Shawn Hu Feb 27th
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
+import javax.swing.JOptionPane;
 
 public class Upgrade extends Clickable {
 
 	private boolean purchased = false;
     protected static ArrayList<String[]> tierText;
-
 	public Upgrade() {
 		super();
 		tier = 0;
@@ -38,10 +42,12 @@ public class Upgrade extends Clickable {
 	}
 
 	protected void click(MouseEvent e) {
-		if (!purchased) {
+		if (!purchased && moneyHave >= price) {
 			purchased = true;
-			price = (long)Math.pow(tier * BASE_PRICE,tier);
-
+			super.click(e);
+		}
+		else {
+			JOptionPane.showMessageDialog(null, "no can do");
 		}
 
 	}
@@ -53,7 +59,17 @@ public class Upgrade extends Clickable {
 		return tierText.size();
 	}
 	protected void setTier() {
+		price = (long)Math.pow(tier * BASE_PRICE,tier);
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
+	}
+	protected BufferedImage createImage() {
+		BufferedImage img = super.createImage();
+		Graphics2D g = img.createGraphics();
+		if(purchased) {
+			g.setColor(new Color(0,0,0));
+			g.drawString("(Purchased)", g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+		}
+		return img;
 	}
 }

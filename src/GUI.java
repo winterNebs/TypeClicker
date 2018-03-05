@@ -1,20 +1,13 @@
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.awt.RenderingHints;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 /*Isaac Wen (2018-02-27)
@@ -51,12 +44,12 @@ public class GUI extends JFrame{
 		this.setVisible(false);
 		init();
 	}
-	private String wordWrap(String s) {
+	public static String wordWrap(String s) {
 		return "<html>" + s + "</html>";
 	}
-	private void setLabel(JLabel l, Font f, int x, int y) {
+	private static void setLabel(JLabel l, Font f, int x, int y) {
 		l.setFont(f);
-		l.setBounds(x, y, this.getFontMetrics(f).stringWidth(l.getText()),this.getFontMetrics(f).getHeight());
+		l.setBounds(x, y, l.getFontMetrics(f).stringWidth(l.getText()),l.getFontMetrics(f).getHeight());
 	}
 	private void init() {
 		mainPanel = new JPanel(null);
@@ -155,7 +148,6 @@ public class GUI extends JFrame{
 		b.drawRect(currentType.getX(), currentType.getY()+currentType.getHeight(),screenScale*4, currentType.getHeight());
 		b.drawRect(currentWPM.getX(), currentWPM.getY(), screenScale*4, screenScale*6);
 		g.drawImage(buffer, 0, 0, this);
-
 	}
 
 	//See drive for layout info

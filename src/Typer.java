@@ -19,17 +19,10 @@ public class Typer extends Clickable {
 	private int numPurchased = 0;
 	private int WPM;
 	private static int cWPM = 0;
-	private long moneyHave;
     protected static ArrayList<String[]> tierText;
 
 	public Typer() {
 	}
-	/**Set Buffered Image
-	 * 
-	 * 
-	 * 
-	 * 
-	 * */
 	public Typer(int t, Dimension s) {
 		super(t, s);
 		setTier();
@@ -52,23 +45,19 @@ public class Typer extends Clickable {
 		tierAdd("12","desc");
 	}
 
-
 	protected void click(MouseEvent e) {
 		if(moneyHave >= price) {
 			cWPM += WPM;
 			numPurchased++;	
+			super.click(e);
+			update();
 		}
 		else {
 			JOptionPane.showMessageDialog(null, "not enough money");
 		}
 	}
-	public void update(long money) {
-		moneyHave = money;
-		price = (long) (Math.pow(tier * BASE_PRICE, tier) * numPurchased);
-		super.update();
-	}
-	public void update() {
-		price = (long) (Math.pow(tier * BASE_PRICE, tier) * numPurchased);
+	protected void update() {
+		price = (long) (Math.pow(tier * BASE_PRICE, tier) * (numPurchased+1));
 		super.update();
 	}
     protected static void tierAdd(String a, String b) {
