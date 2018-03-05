@@ -15,7 +15,6 @@ public class Word {
  * 
  * */
 	private String word;
-	private int points;
 	static HashMap<Integer, String> dictionary = new HashMap<Integer, String>();
 	static int dictSize;
 	public static void dictInit() {
@@ -54,7 +53,13 @@ public class Word {
 		return word.length();
 	}
 	public int getPoints() {
-		return getLength(); //Fancy math later;
+	int points;
+	points = word.length()/Game.WORD_LENGTH;
+	if(points==0){
+		return 1 ;
+	}
+	return points;
+	
 	}
 	public boolean contains(String s) {
 		if(s.length()>word.length()) {

@@ -7,7 +7,7 @@ import java.awt.event.KeyListener;
 public class Game implements KeyListener, Runnable{
 	private Thread thread;
 	private final static int INTERVAL = 10;
-	private final static int WORD_LENGTH = 5;
+	public final static int WORD_LENGTH = 5;
 	private final static int LOOP_COUNT = 500;
 	private int updateLoops = 0;
 	private String input;
