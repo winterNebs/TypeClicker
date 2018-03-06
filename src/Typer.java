@@ -1,24 +1,19 @@
 import javax.swing.*;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 /* Isaac Wen (2018-03-02)
  * Shawn Hu (2018-02-28)
  * */
 public class Typer extends Clickable {
-	/**
-	 * TODO:
-	 * <p>
-	 * Counter for number of purchased
-	 * WPM
-	 * Some sort of math to calculate price
-	 * Static cumulative WPM
-	 */
+
 	private int numPurchased = 0;
-	private int WPM;
-	private static int cWPM = 0;
+	private int production;
+	public static int cProduction = 0;
     protected static ArrayList<String[]> tierText;
 
 	public Typer() {
@@ -26,6 +21,7 @@ public class Typer extends Clickable {
 	public Typer(int t, Dimension s) {
 		super(t, s);
 		setTier();
+		production = (int) (Math.pow(tier+1, 2));
 		update();
 	}
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
@@ -47,13 +43,13 @@ public class Typer extends Clickable {
 
 	protected void click(MouseEvent e) {
 		if(moneyHave >= price) {
-			cWPM += WPM;
+			cProduction += production;
 			numPurchased++;	
 			super.click(e);
 			update();
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "not enough money");
+			JOptionPane.showMessageDialog(null, "Not enough money");
 		}
 	}
 	protected void update() {
@@ -70,6 +66,14 @@ public class Typer extends Clickable {
 	protected void setTier() {
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
+	}
+	protected BufferedImage createImage() {
+		BufferedImage img = super.createImage();
+		Graphics2D g = img.createGraphics();
+			g.setColor(new Color(0,0,0));
+			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+
+		return img;
 	}
 }
 

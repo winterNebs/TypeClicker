@@ -5,7 +5,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -42,12 +41,17 @@ public class Upgrade extends Clickable {
 	}
 
 	protected void click(MouseEvent e) {
-		if (!purchased && moneyHave >= price) {
-			purchased = true;
-			super.click(e);
+		if (!purchased ) {
+			if(moneyHave >= price) {
+				purchased = true;
+				super.click(e);
+			}
+			else {
+				JOptionPane.showMessageDialog(null, "Not enough money");
+			}
 		}
 		else {
-			JOptionPane.showMessageDialog(null, "no can do");
+			JOptionPane.showMessageDialog(null, "Already owned");
 		}
 
 	}

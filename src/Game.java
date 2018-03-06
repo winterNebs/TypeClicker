@@ -8,8 +8,10 @@ public class Game implements KeyListener, Runnable{
 	private Thread thread;
 	private final static int INTERVAL = 10;
 	public final static int WORD_LENGTH = 5;
-	private final static int LOOP_COUNT = 500;
-	private int updateLoops = 0;
+	private final static int LOOP_COUNT = 100;
+	private final static int[] LOOPS_COUNT = {100, 600};
+	private int updateLoop = 0;
+	private int[] updateLoops = {0,0};
 	private String input;
 	private GUI gui;
 	private WordList words;
@@ -54,6 +56,7 @@ public class Game implements KeyListener, Runnable{
 		}
 		gui.updateScorePoints(points);
 		Clickable.updateMoney(points);
+		gui.updateProduction(Typer.cProduction);
 	}
 
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
@@ -86,15 +89,24 @@ public class Game implements KeyListener, Runnable{
 	public void run() {
 		while(true) {
 			try {
-				if(updateLoops >= LOOP_COUNT) {
-					gui.updateWPM((charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops));
-					charCount = 0;
-					updateLoops = 0;
+				for(int i = 0; i < LOOPS_COUNT.length; i++) {
+					if(updateLoops[i]>= LOOPS_COUNT[i]) {
+						switch(i) {
+						case 0:
+							gui.updateWPM((charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops[i]));
+							charCount = 0;
+							updateLoop = 0;
+							break;
+						case 1:
+							points += Typer.cProduction;
+							break;
+						}
+						updateLoops[i] = 0;
+					}
+					else {
+						updateLoops[i]++;
+					}
 				}
-				else {
-					updateLoops++;
-				}
-				//System.out.println(updateLoops);
 				update();
 				Thread.sleep(INTERVAL);
 			} catch (InterruptedException e) {

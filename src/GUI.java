@@ -21,6 +21,7 @@ public class GUI extends JFrame{
 	private JLabel currentText;
 	private JLabel currentWPM;
 	private JLabel currentScore;
+	private JLabel currentProduction;
 	private Font defaultFont;
 	private JPanel upgradeList;
 	private JPanel typerList;
@@ -64,7 +65,6 @@ public class GUI extends JFrame{
 		initUpgrades();
 		initTypers();
 		mainPanel.add(currentType = new JLabel(""));
-
 		currentType.setOpaque(true);
 		mainPanel.add(currentText = new JLabel(""));
 		currentText.setOpaque(true);
@@ -72,6 +72,7 @@ public class GUI extends JFrame{
 //		currentWPM.setOpaque(true);
 		mainPanel.add(currentWPM = new JLabel(""));
 		mainPanel.add(currentScore = new JLabel(""));
+		mainPanel.add(currentProduction = new JLabel(""));
 		updateWPM(0);
 		updateScorePoints(0);
 		this.add(mainPanel);
@@ -118,11 +119,15 @@ public class GUI extends JFrame{
 		repaint();
 	}
 	public void updateWPM(int w){
-		currentWPM.setText("Words per Minute: " + w);
+		currentWPM.setText("Words Per Minute: " + w);
 		repaint();
 	}
 	public void updateScorePoints(long s){
 		currentScore.setText("Score: " + s);
+		repaint();
+	}
+	public void updateProduction(int p) {
+		currentProduction.setText("Production: " + (double)p*10 + " wpm");
 		repaint();
 	}
 	private void display() {
@@ -131,8 +136,9 @@ public class GUI extends JFrame{
 		setLabel(currentType,defaultFont, screenScale,screenScale*(ASPECT_HEIGHT-3));
 		currentText.setFont(defaultFont);
 		currentText.setBounds(screenScale,screenScale,screenScale*4,screenScale*4);
-		setLabel(currentWPM,defaultFont, screenScale*(ASPECT_WIDTH-10), screenScale);
-		setLabel(currentScore,defaultFont, screenScale*(ASPECT_WIDTH-10), currentWPM.getY()+currentWPM.getHeight());
+		setLabel(currentScore,defaultFont, screenScale*(ASPECT_WIDTH-10), screenScale);
+		setLabel(currentWPM,defaultFont, screenScale*(ASPECT_WIDTH-10), currentScore.getHeight()+currentScore.getY());
+		setLabel(currentProduction,defaultFont, screenScale*(ASPECT_WIDTH-10), currentWPM.getHeight()+currentWPM.getY());
 
 	}
 	public void paint(Graphics g) {
@@ -146,7 +152,7 @@ public class GUI extends JFrame{
 		b.setColor(new Color(0,0,0));
 		b.drawRect(currentText.getX(), currentText.getY(),currentText.getWidth(), currentText.getHeight());
 		b.drawRect(currentType.getX(), currentType.getY()+currentType.getHeight(),screenScale*4, currentType.getHeight());
-		b.drawRect(currentWPM.getX(), currentWPM.getY(), screenScale*4, screenScale*6);
+		b.drawRect(currentScore.getX(), currentScore.getY(), screenScale*4, screenScale*6);
 		g.drawImage(buffer, 0, 0, this);
 	}
 
