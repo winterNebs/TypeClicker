@@ -8,18 +8,17 @@ import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-
 import javax.swing.JOptionPane;
 
 public class Upgrade extends Clickable {
-
+	public static int multiplier = 1;
 	private boolean purchased = false;
     protected static ArrayList<String[]> tierText;
 	public Upgrade() {
 		super();
 		tier = 0;
 		text = "default";
-		description = "default";
+		description = "default";	
 
 	}
 	public Upgrade(int t, Dimension s) {
@@ -37,13 +36,12 @@ public class Upgrade extends Clickable {
 		tierAdd("Upgrade","Desc");
 		tierAdd("Upgrade","Desc");
 		tierAdd("Upgrade","Desc");
-
 	}
-
 	protected void click(MouseEvent e) {
 		if (!purchased ) {
 			if(moneyHave >= price) {
 				purchased = true;
+				tierer(tier);
 				super.click(e);
 			}
 			else {
@@ -54,6 +52,16 @@ public class Upgrade extends Clickable {
 			JOptionPane.showMessageDialog(null, "Already owned");
 		}
 
+	}
+	private void tierer(int t) {
+		switch(t) {
+		case 0:
+			multiplier = 30;
+			break;
+		case 1:
+			game.getWordList().setJumble(false);
+			break;
+		}
 	}
     protected static void tierAdd(String a, String b) {
 		String[] s = {a,b};

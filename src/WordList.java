@@ -4,13 +4,21 @@ public class WordList {
 	private ArrayList<Word> words;
 	private int length;
 	public Word lastWord;
-	
+	private static boolean jumble = true;
 	public WordList() {
 		
 	}
 	public WordList(int l) {
 		length = l;
 		words = new ArrayList<>();
+		update();
+	}
+	public static boolean getJumble() {
+		return jumble;
+	}
+	public void setJumble(boolean j) {
+		jumble = j;
+		words.clear();
 		update();
 	}
 	private void update() {

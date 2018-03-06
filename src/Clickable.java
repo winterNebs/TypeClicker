@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
  * Image for the icon
  * */
 public class Clickable extends JLabel{
-	private static Game game;
+	protected static Game game;
 	public String text;
 	protected int tier;
 	protected final long BASE_PRICE = 100;
