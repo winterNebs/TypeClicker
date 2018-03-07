@@ -59,6 +59,7 @@ public class Game implements KeyListener, Runnable{
 		gui.updateScorePoints(points);
 		Clickable.updateMoney(points);
 		gui.updateProduction(Typer.cProduction);
+		words.updateChar(input.length());
 	}
 
 	private int check() {//0 = correct, 1 = wrong, 2 = complete
@@ -83,7 +84,6 @@ public class Game implements KeyListener, Runnable{
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
 		case KeyEvent.VK_CAPS_LOCK: break;
-		case KeyEvent.VK_ALT: points += 1000; break; //Cheat by Fred Deng
 		default: type(e.getKeyChar());
 		}
 		update();

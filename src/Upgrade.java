@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 public class Upgrade extends Clickable {
 	public static int multiplier = 1;
 	private boolean purchased = false;
+	
     protected static ArrayList<String[]> tierText;
 	public Upgrade() {
 		super();
@@ -60,6 +61,9 @@ public class Upgrade extends Clickable {
 			break;
 		case 1:
 			game.getWordList().setJumble(false);
+			break;
+		case 2:
+			game.getWordList().setHidden(false);
 			break;
 		}
 	}

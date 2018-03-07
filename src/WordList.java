@@ -5,6 +5,8 @@ public class WordList {
 	private int length;
 	public Word lastWord;
 	private static boolean jumble = true;
+	private static boolean hidden = true;
+	private int chars = 0;
 	public WordList() {
 		
 	}
@@ -26,12 +28,22 @@ public class WordList {
 			words.add(new Word());
 		}
 	}
-	public String toString() {
+	public void updateChar(int c) {
+		chars = c;
+	}
+	public String toString() {			
 		String s = "";
-		for(Word w: words) {
-			s += w.toString() + " ";
+		if(hidden) {
+			System.out.println(chars);
+			if(chars<=words.get(0).toString().length()) {
+				s += (words.get(0).toString()+" ").substring(0,chars+1);
+			}
 		}
-		//System.out.println(s);
+		else {
+			for(Word w: words) {
+				s += w.toString() + " ";
+			}	
+		}
 		return s;
 	}
 	public boolean checkComplete(String i) {
@@ -50,5 +62,8 @@ public class WordList {
 	}
 	public Word getWord(){
 		return words.get(0);
+	}
+	public void setHidden(boolean h) {
+		hidden = h;
 	}
 }
