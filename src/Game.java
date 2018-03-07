@@ -84,6 +84,8 @@ public class Game implements KeyListener, Runnable{
 			//case KeyEvent.VK_SPACE: update(); break;
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
+		case KeyEvent.VK_CAPS_LOCK: break;
+		case KeyEvent.VK_ALT: points += 1000; break; //Cheat by Fred Deng
 		default: type(e.getKeyChar());
 		}
 		update();
