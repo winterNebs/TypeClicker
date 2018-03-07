@@ -9,17 +9,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-/**TODO:
- * Have some sort of output/draw feature. This can be either returning or drawing directly. (JComponent/JLabel)
- * Handle clicks somehow
- * Size/Pos for drawing
- * Image for the icon
- * */
 public class Clickable extends JLabel{
 	protected static Game game;
 	public String text;
 	protected int tier;
-	protected final long BASE_PRICE = 100;
+	protected final long BASE_PRICE = 50;
 	protected long price;
 	protected String description;
 	protected Dimension size;
@@ -44,7 +38,7 @@ public class Clickable extends JLabel{
 			public void mouseExited(MouseEvent e) {}
 		});
 	}
-	protected void update() {
+	protected void update() {	
 		this.setIcon(new ImageIcon(createImage()));
 		this.setSize(size);
 	}

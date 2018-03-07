@@ -31,6 +31,7 @@ public class WordList {
 		for(Word w: words) {
 			s += w.toString() + " ";
 		}
+		//System.out.println(s);
 		return s;
 	}
 	public boolean checkComplete(String i) {

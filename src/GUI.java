@@ -46,7 +46,16 @@ public class GUI extends JFrame{
 		init();
 	}
 	public static String wordWrap(String s) {
-		return "<html>" + s + "</html>";
+		String a = "";
+		for(int i = 0; i < s.length(); i++) {
+			if(s.charAt(i) == '<') {
+				a += "&#60;";
+			}
+			else {
+				a += s.charAt(i);
+			}
+		}
+		return "<html>" + a + "</html>";
 	}
 	private static void setLabel(JLabel l, Font f, int x, int y) {
 		l.setFont(f);
@@ -69,7 +78,7 @@ public class GUI extends JFrame{
 		mainPanel.add(currentText = new JLabel(""));
 		currentText.setOpaque(true);
 		currentText.setBackground(new Color(100,100,100,50));
-//		currentWPM.setOpaque(true);
+
 		mainPanel.add(currentWPM = new JLabel(""));
 		mainPanel.add(currentScore = new JLabel(""));
 		mainPanel.add(currentProduction = new JLabel(""));
@@ -110,12 +119,10 @@ public class GUI extends JFrame{
 			currentType.setBackground(new Color(255,0,0,100));
 		}
 		currentType.setText(i);
-		//display();
 		repaint();
 	}
 	public void updateText(String t) {
 		currentText.setText(wordWrap(t));
-		//display();
 		repaint();
 	}
 	public void updateWPM(int w){
@@ -153,6 +160,7 @@ public class GUI extends JFrame{
 		b.drawRect(currentText.getX(), currentText.getY(),currentText.getWidth(), currentText.getHeight());
 		b.drawRect(currentType.getX(), currentType.getY()+currentType.getHeight(),screenScale*4, currentType.getHeight());
 		b.drawRect(currentScore.getX(), currentScore.getY(), screenScale*4, screenScale*6);
+
 		g.drawImage(buffer, 0, 0, this);
 	}
 

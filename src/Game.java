@@ -8,9 +8,7 @@ public class Game implements KeyListener, Runnable{
 	private Thread thread;
 	private final static int INTERVAL = 10;
 	public final static int WORD_LENGTH = 5;
-	private final static int LOOP_COUNT = 100;
 	private final static int[] LOOPS_COUNT = {100, 600};
-	private int updateLoop = 0;
 	private int[] updateLoops = {0,0};
 	private String input;
 	private GUI gui;
@@ -101,7 +99,6 @@ public class Game implements KeyListener, Runnable{
 						case 0:
 							gui.updateWPM((charCount*1000*60)/(WORD_LENGTH*INTERVAL*updateLoops[i]));
 							charCount = 0;
-							updateLoop = 0;
 							break;
 						case 1:
 							points += Typer.cProduction;

@@ -5,5 +5,4 @@ public class MainClass {
 		Word.dictInit();
 		Game game = new Game();
 	}
-
 }
