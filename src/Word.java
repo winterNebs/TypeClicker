@@ -58,7 +58,6 @@ public class Word {
 				s += symbols.get((int)(Math.random()*(symbols.size()-2))+1);
 			}
 			word = removeSpace(s);
-			System.out.println(word);
 		}
 		else {		
 			word = dictionary.get((int)(Math.random()*dictSize));

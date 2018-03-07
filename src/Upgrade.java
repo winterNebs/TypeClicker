@@ -56,7 +56,7 @@ public class Upgrade extends Clickable {
 	private void tierer(int t) {
 		switch(t) {
 		case 0:
-			multiplier = 30;
+			multiplier = 2;
 			break;
 		case 1:
 			game.getWordList().setJumble(false);
@@ -71,7 +71,7 @@ public class Upgrade extends Clickable {
 		return tierText.size();
 	}
 	protected void setTier() {
-		price = (long)Math.pow(tier * BASE_PRICE,tier);
+		price = (long)Math.pow(BASE_PRICE/(tier+1),tier+1);
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
 	}

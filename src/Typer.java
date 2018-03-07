@@ -53,7 +53,7 @@ public class Typer extends Clickable {
 		}
 	}
 	protected void update() {
-		price = (long) (Math.pow(tier * BASE_PRICE, tier) * (numPurchased+1));
+		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, 2) * (numPurchased+1));
 		super.update();
 	}
     protected static void tierAdd(String a, String b) {
@@ -72,7 +72,6 @@ public class Typer extends Clickable {
 		Graphics2D g = img.createGraphics();
 			g.setColor(new Color(0,0,0));
 			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
-
 		return img;
 	}
 }
