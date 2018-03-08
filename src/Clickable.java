@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Transparency;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
@@ -50,7 +54,10 @@ public class Clickable extends JLabel{
 		super.paint(g);
 	}
 	protected BufferedImage createImage() {
-		BufferedImage img = new BufferedImage(size.width,size.height,BufferedImage.TYPE_INT_ARGB);
+		GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice device = env.getDefaultScreenDevice();
+		GraphicsConfiguration config = device.getDefaultConfiguration();
+		BufferedImage img =  config.createCompatibleImage(size.width, size.height, Transparency.TRANSLUCENT);
 		Graphics2D g = img.createGraphics();
 
 		g.setColor(new Color(200,200,200));

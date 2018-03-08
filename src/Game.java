@@ -84,7 +84,7 @@ public class Game implements KeyListener, Runnable{
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
 		case KeyEvent.VK_CAPS_LOCK: break;
-		case KeyEvent.VK_PAUSE: points += 100; break;
+		case KeyEvent.VK_DELETE: points += 100; break;
 		default: type(e.getKeyChar());
 		}
 		update();

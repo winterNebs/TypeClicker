@@ -9,16 +9,15 @@ import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Upgrade extends Clickable {
 	public static int multiplier = 1;
 	private boolean purchased = false;
-    private static int maxTier = 0;
+	private static int maxTier = 0;
 
-    protected static ArrayList<String[]> tierText;
+	protected static ArrayList<String[]> tierText;
 	public Upgrade() {
 		super();
 		tier = 0;
@@ -29,6 +28,7 @@ public class Upgrade extends Clickable {
 	public Upgrade(int t, Dimension s) {
 		super(t, s);
 		setTier();
+		update();
 	}
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
 		tierText = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Upgrade extends Clickable {
 		tierAdd("Upgrade","Desc");
 	}
 	public void update() {
-		visible = (tier <= maxTier);		
+		visible = (tier <= maxTier);
 		super.update();
 	}
 	protected void click(MouseEvent e) {
@@ -78,10 +78,10 @@ public class Upgrade extends Clickable {
 			break;
 		}
 	}
-    protected static void tierAdd(String a, String b) {
+	protected static void tierAdd(String a, String b) {
 		String[] s = {a,b};
 		tierText.add(s);
-    }
+	}
 	static int getMax() {
 		return tierText.size();
 	}
@@ -93,19 +93,25 @@ public class Upgrade extends Clickable {
 	protected BufferedImage createImage() {
 		BufferedImage img = super.createImage();
 		Graphics2D g = img.createGraphics();
-		String path = "";
-		switch(tier) {
-		case 0: path="/resource/pen.png";break;
-		}
-		try {
-			g.drawImage(ImageIO.read(this.getClass().getResourceAsStream(path)),0,0,(int)size.getWidth(),(int)size.getHeight(),null);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(purchased) {
-			g.setColor(new Color(0,0,0));
-			g.drawString("(Purchased)", g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+		if(visible) {
+			String name = "";
+			switch(tier) {
+			case 0: name="pen";break;
+			case 1: name="brain";break;
+			case 2: name="eyes"; break;
+			default: name="default"; break;
+			}
+			try {
+				BufferedImage i = ImageIO.read(this.getClass().getResourceAsStream("/resource/"+name+".png"));
+				g.drawImage(i,0,0,(int)size.getWidth(),(int)size.getHeight(),0,0,i.getWidth(),i.getHeight(),null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			if(purchased) {
+				g.setColor(new Color(0,0,0));
+				g.drawString("(Purchased)", g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+			}
 		}
 		return img;
 	}

@@ -79,16 +79,19 @@ public class Typer extends Clickable {
 			Graphics2D g = img.createGraphics();
 			g.setColor(new Color(0,0,0));
 			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
-			String path = "";
+			String name = "";
 			switch(tier) {
-			case 0: path="/resource/intern.png";break;
+			case 0: name="intern";break;
+			case 1: name="cellphone"; break;
+			default: name="default"; break;
 			}
 			try {
-				g.drawImage(ImageIO.read(this.getClass().getResourceAsStream(path)),0,0,(int)size.getWidth(),(int)size.getHeight(),null);
+				BufferedImage i = ImageIO.read(this.getClass().getResourceAsStream("/resource/"+name+".png"));
+				g.drawImage(i,0,0,(int)size.getWidth(),(int)size.getHeight(),0,0,i.getWidth(),i.getHeight(),null);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}	
+			}
 		}
 		return img;
 	}
