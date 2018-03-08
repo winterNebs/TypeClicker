@@ -7,7 +7,10 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 
 public class Upgrade extends Clickable {
@@ -90,6 +93,16 @@ public class Upgrade extends Clickable {
 	protected BufferedImage createImage() {
 		BufferedImage img = super.createImage();
 		Graphics2D g = img.createGraphics();
+		String path = "";
+		switch(tier) {
+		case 0: path="/resource/pen.png";break;
+		}
+		try {
+			g.drawImage(ImageIO.read(this.getClass().getResourceAsStream(path)),0,0,(int)size.getWidth(),(int)size.getHeight(),null);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(purchased) {
 			g.setColor(new Color(0,0,0));
 			g.drawString("(Purchased)", g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);

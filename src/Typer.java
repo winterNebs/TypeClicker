@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.Color;
@@ -5,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 /* Isaac Wen (2018-03-02)
  * Shawn Hu (2018-02-28)
@@ -77,6 +79,16 @@ public class Typer extends Clickable {
 			Graphics2D g = img.createGraphics();
 			g.setColor(new Color(0,0,0));
 			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+			String path = "";
+			switch(tier) {
+			case 0: path="/resource/intern.png";break;
+			}
+			try {
+				g.drawImage(ImageIO.read(this.getClass().getResourceAsStream(path)),0,0,(int)size.getWidth(),(int)size.getHeight(),null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
 		return img;
 	}
