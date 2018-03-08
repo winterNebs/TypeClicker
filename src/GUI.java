@@ -130,7 +130,7 @@ public class GUI extends JFrame{
 		repaint();
 	}
 	public void updateScorePoints(long s){
-		currentScore.setText("Score: " + s);
+		currentScore.setText("Points: " + s);
 		repaint();
 	}
 	public void updateProduction(int p) {

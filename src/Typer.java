@@ -14,14 +14,14 @@ public class Typer extends Clickable {
 	private int numPurchased = 0;
 	private int production;
 	public static int cProduction = 0;
-    protected static ArrayList<String[]> tierText;
-
+	protected static ArrayList<String[]> tierText;
+	private static int maxTier = 0;
 	public Typer() {
 	}
 	public Typer(int t, Dimension s) {
 		super(t, s);
 		setTier();
-		production = (int) (Math.pow(tier+1, 2));
+		production = (int) (Math.pow(tier+1, 2)+5*tier);
 		update();
 	}
 	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
@@ -45,6 +45,9 @@ public class Typer extends Clickable {
 		if(moneyHave >= price) {
 			cProduction += production;
 			numPurchased++;	
+			if(tier >= maxTier) {
+				maxTier = tier+1;
+			}
 			super.click(e);
 			update();
 		}
@@ -53,13 +56,14 @@ public class Typer extends Clickable {
 		}
 	}
 	protected void update() {
-		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, 2) * (numPurchased+1));
+		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, 2) + (numPurchased*(tier+1)*BASE_PRICE/5));
+		visible = (tier <= maxTier);		
 		super.update();
 	}
-    protected static void tierAdd(String a, String b) {
+	protected static void tierAdd(String a, String b) {
 		String[] s = {a,b};
 		tierText.add(s);
-    }
+	}
 	static int getMax() {
 		return tierText.size();
 	}
@@ -69,9 +73,11 @@ public class Typer extends Clickable {
 	}
 	protected BufferedImage createImage() {
 		BufferedImage img = super.createImage();
-		Graphics2D g = img.createGraphics();
+		if(visible) {
+			Graphics2D g = img.createGraphics();
 			g.setColor(new Color(0,0,0));
 			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
+		}
 		return img;
 	}
 }

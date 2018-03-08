@@ -34,7 +34,6 @@ public class WordList {
 	public String toString() {			
 		String s = "";
 		if(hidden) {
-			System.out.println(chars);
 			if(chars<=words.get(0).toString().length()) {
 				s += (words.get(0).toString()+" ").substring(0,chars+1);
 			}

@@ -8,7 +8,7 @@ public class Game implements KeyListener, Runnable{
 	private Thread thread;
 	private final static int INTERVAL = 10;
 	public final static int WORD_LENGTH = 5;
-	private final static int[] LOOPS_COUNT = {100, 600};
+	private final static int[] LOOPS_COUNT = {300, 600};
 	private int[] updateLoops = {0,0};
 	private String input;
 	private GUI gui;
@@ -84,6 +84,7 @@ public class Game implements KeyListener, Runnable{
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
 		case KeyEvent.VK_CAPS_LOCK: break;
+		case KeyEvent.VK_PAUSE: points += 100; break;
 		default: type(e.getKeyChar());
 		}
 		update();

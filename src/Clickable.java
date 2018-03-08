@@ -18,6 +18,7 @@ public class Clickable extends JLabel{
 	protected String description;
 	protected Dimension size;
 	protected static long moneyHave;
+	protected boolean visible;
 	public Clickable() {
 
 	}
@@ -30,7 +31,9 @@ public class Clickable extends JLabel{
 		size = s;
 		this.addMouseListener(new MouseListener() {
 			public void mouseClicked(MouseEvent e) {
-				click(e);
+				if(visible) {
+					click(e);
+				}
 			}
 			public void mousePressed(MouseEvent e) {}
 			public void mouseReleased(MouseEvent e) {}
@@ -54,9 +57,15 @@ public class Clickable extends JLabel{
 		g.fillRect(0,0,size.width, size.height);
 		g.setColor(Color.black);
 		g.drawRect(0, 0, size.width, size.height);
-		g.drawString(text, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight());
-		this.setToolTipText(description);
-		g.drawString("Price: " + price, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*2);
+		if(visible) {
+			g.drawString(text, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight());
+			this.setToolTipText(description);
+			g.drawString("Price: " + price, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*2);
+		}
+		else {
+			g.drawString("?", g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight());
+			this.setToolTipText("Unknown");
+		}
 		return img;
 	}
 	protected void click(MouseEvent e) {
@@ -67,5 +76,11 @@ public class Clickable extends JLabel{
 	}
 	public static void updateMoney(long m) {
 		moneyHave = m;
+	}
+	public void setVisible(boolean v) {
+		visible = v;
+	}
+	public boolean getVisible() {
+		return visible;
 	}
 }

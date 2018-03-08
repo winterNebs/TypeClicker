@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
 public class Upgrade extends Clickable {
 	public static int multiplier = 1;
 	private boolean purchased = false;
-	
+    private static int maxTier = 0;
+
     protected static ArrayList<String[]> tierText;
 	public Upgrade() {
 		super();
@@ -38,10 +39,17 @@ public class Upgrade extends Clickable {
 		tierAdd("Upgrade","Desc");
 		tierAdd("Upgrade","Desc");
 	}
+	public void update() {
+		visible = (tier <= maxTier);		
+		super.update();
+	}
 	protected void click(MouseEvent e) {
 		if (!purchased ) {
 			if(moneyHave >= price) {
 				purchased = true;
+				if(tier >= maxTier) {
+					maxTier = tier+1;
+				}
 				tierer(tier);
 				super.click(e);
 			}
@@ -75,7 +83,7 @@ public class Upgrade extends Clickable {
 		return tierText.size();
 	}
 	protected void setTier() {
-		price = (long)Math.pow(BASE_PRICE/(tier+1),tier+1);
+		price = (long)(Math.pow(BASE_PRICE/5,2)*(tier+1)/2);
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
 	}
