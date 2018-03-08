@@ -10,23 +10,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 /* Isaac Wen (2018-03-02)
  * Shawn Hu (2018-02-28)
+ * 
+ * Typer inherits clickable
+ * A typer is something that helps you get points over time.
+ * Unlike an upgrade you can buy multiple typers to get points
  * */
 public class Typer extends Clickable {
 
-	private int numPurchased = 0;
-	private int production;
-	public static int cProduction = 0;
-	protected static ArrayList<String[]> tierText;
-	private static int maxTier = 0;
-	public Typer() {
+	private int numPurchased = 0;						//Number of each typer purchased
+	private int production;								//Amount of WPM each produce (NOTE: not actually wpm its word per 6 seconds)
+	public static int cProduction = 0;					//Total production from typers
+	protected static ArrayList<String[]> tierText;		//An array with all the text/descriptions for the typers
+	private static int maxTier = 0;						//Highest tier typer
+	public Typer() {									//Blank default constructor
 	}
-	public Typer(int t, Dimension s) {
+	public Typer(int t, Dimension s) {					//Sets tier and size
 		super(t, s);
-		setTier();
-		production = (int) (Math.pow(tier+1, 2)+5*tier);
+		setTier();										//Sets text and description based on tier
+		production = (int) (Math.pow(tier+1, 2)+5*tier);//Sets the production based on some formula
 		update();
 	}
-	static void initTier() { //Redo descriptions to have flavor text. Player will be able to tell which is better...
+	static void initTier() {		//Sets name and description for each typer
 		tierText = new ArrayList<>();
 		tierAdd("Intern","Hire a poor intern to scribe for you");
 		tierAdd("Text to Speech","It's a little faster");
@@ -43,37 +47,37 @@ public class Typer extends Clickable {
 		tierAdd("12","desc");
 	}
 
-	protected void click(MouseEvent e) {
-		if(moneyHave >= price) {
-			cProduction += production;
-			numPurchased++;	
-			if(tier >= maxTier) {
+	protected void click(MouseEvent e) {		//Called when clicked on
+		if(moneyHave >= price) {				//Checks if player has enough money
+			cProduction += production;			//Adds the production to the total production
+			numPurchased++;						//Increases the number purchased
+			if(tier >= maxTier) {				//If the tier of the thing purchased is higher than the max, set it to the max	
 				maxTier = tier+1;
 			}
-			super.click(e);
-			update();
+			super.click(e);						//Call super class click
+			update();							//update
 		}
-		else {
+		else {									//If not enough money, say not enough money
 			JOptionPane.showMessageDialog(null, "Not enough money");
 		}
 	}
-	protected void update() {
+	protected void update() {					//Update price and visibility and call super (price increases the more you buy)
 		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, 2) + (numPurchased*(tier+1)*BASE_PRICE/5));
-		visible = (tier <= maxTier);		
-		super.update();
+		visible = (tier <= maxTier);			//Basically only show next tier. (Hides higher tiers until you unlock the one before)
+		super.update();							
 	}
 	protected static void tierAdd(String a, String b) {
-		String[] s = {a,b};
+		String[] s = {a,b};						//Adds a tier to the list
 		tierText.add(s);
 	}
-	static int getMax() {
+	static int getMax() {						//Returns the highest possible tier
 		return tierText.size();
 	}
-	protected void setTier() {
+	protected void setTier() {					//Sets the text and description based on tier
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
 	}
-	protected BufferedImage createImage() {
+	protected BufferedImage createImage() {		//Adds numbered purchased and image to the super class's method
 		BufferedImage img = super.createImage();
 		if(visible) {
 			Graphics2D g = img.createGraphics();
@@ -81,7 +85,7 @@ public class Typer extends Clickable {
 			g.drawString("Owned: " + numPurchased, g.getFontMetrics().stringWidth(" "), g.getFontMetrics().getHeight()*3);
 			String name = "";
 			switch(tier) {
-			case 0: name="intern";break;
+			case 0: name="intern";break;		//Adds appropriate image
 			case 1: name="cellphone"; break;
 			default: name="default"; break;
 			}
