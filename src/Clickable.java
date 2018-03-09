@@ -19,7 +19,7 @@ public class Clickable extends JLabel{
 	protected static Game game;				//Used to pass click events
 	public String text;						//Text of the clickable item
 	protected int tier;						//What tier the clickable is
-	protected final long BASE_PRICE = 50;	//Base price subject to balacing changes
+	protected final long BASE_PRICE = 20;	//Base price subject to balacing changes
 	protected long price;					//Price of the clickable item
 	protected String description;			//Tool tip for the clickable
 	protected Dimension size;				//The size fo the clickable item

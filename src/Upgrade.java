@@ -33,8 +33,8 @@ public class Upgrade extends Clickable {
 	static void initTier() { 					//Sets descriptions of upgrades
 		tierText = new ArrayList<>();
 		tierAdd("Pen","Your first writing utensil");
-		tierAdd("Brain","Allows you to read");
 		tierAdd("Eyes", "You can finally see");
+		tierAdd("Brain","Allows you to read");
 		tierAdd("Pencil","Allows you to erase");
 		tierAdd("Membrane Keyboard","Writing was difficult, this one comes with letters. It seems to be missing some keys");
 		tierAdd("Mechanical Keyboard","Your first real keyboard");
@@ -70,11 +70,11 @@ public class Upgrade extends Clickable {
 		case 0:			//Pen, doubles the points you get per word
 			multiplier = 2;
 			break;
-		case 1:			//Brain, unjumbles the words (letters instead of symbols)
-			game.getWordList().setJumble(false);
-			break;
-		case 2:			//Eyes, let's player see whole word
+		case 1:			//Eyes, let's player see whole word
 			game.getWordList().setHidden(false);
+			break;
+		case 2:			//Brain, unjumbles the words (letters instead of symbols)
+			game.getWordList().setJumble(false);
 			break;
 		}
 	}
@@ -86,7 +86,7 @@ public class Upgrade extends Clickable {
 		return tierText.size();
 	}
 	protected void setTier() {							//Sets the text and price (price doesn't change)
-		price = (long)(Math.pow(BASE_PRICE/5,2)*(tier+1)/2);
+		price = (long)(Math.pow(BASE_PRICE/5,2)*(tier+1));
 		text = tierText.get(tier)[0];
 		description = tierText.get(tier)[1];
 	}
@@ -97,8 +97,8 @@ public class Upgrade extends Clickable {
 			String name = "";
 			switch(tier) {								//Sets appropriate images
 			case 0: name="pen";break;
-			case 1: name="brain";break;
-			case 2: name="eyes"; break;
+			case 1: name="eyes";break;
+			case 2: name="brain"; break;
 			default: name="default"; break;
 			}
 			try {

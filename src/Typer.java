@@ -62,7 +62,7 @@ public class Typer extends Clickable {
 		}
 	}
 	protected void update() {					//Update price and visibility and call super (price increases the more you buy)
-		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, 2) + (numPurchased*(tier+1)*BASE_PRICE/5));
+		price = (long) (Math.pow((tier+1)*BASE_PRICE/10, tier+1) + (numPurchased*(tier+1)*BASE_PRICE/5));
 		visible = (tier <= maxTier);			//Basically only show next tier. (Hides higher tiers until you unlock the one before)
 		super.update();							
 	}

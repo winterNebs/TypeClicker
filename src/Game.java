@@ -78,6 +78,7 @@ public class Game implements KeyListener, Runnable{
 				input = input.substring(0, input.length()-1); 
 			}
 			break;
+		case KeyEvent.VK_ENTER: break;
 		case KeyEvent.VK_CONTROL: break;
 		case KeyEvent.VK_ESCAPE: break;
 		case KeyEvent.VK_CAPS_LOCK: break;
