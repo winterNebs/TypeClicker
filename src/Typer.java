@@ -86,7 +86,8 @@ public class Typer extends Clickable {
 			String name = "";
 			switch(tier) {
 			case 0: name="intern";break;		//Adds appropriate image
-			case 1: name="cellphone"; break;
+			case 1: name="texttospeech"; break;
+			case 2: name="cellphone"; break;
 			default: name="default"; break;
 			}
 			try {
